@@ -1,17 +1,25 @@
-## How to configure
+# Authentication sample for Azure AD B2C Spring Boot Starter client library for Java
+
+## Key concepts
+
+Azure Active Directory B2C (Azure AD B2C) is an identity management service that enables custom control of how your customers sign up, sign in, and manage their profiles when using your iOS, Android, .NET, single-page (SPA), and other applications.
+
+This sample illustrates how to use `azure-active-directory-b2c-spring-boot-starter` package to work with OAuth 2.0 and OpenID Connect protocols on Azure.
+
+## Getting started
 
 ### Create your Azure Active Directory B2C tenant
 
-Follow the guide of [AAD B2C tenant creation](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-tenant).
+Follow the guide of [AAD B2C tenant creation](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-tenant).
 
 ### Register your Azure Active Directory B2C application
 
-Follow the guide of [AAD B2C application registry](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-applications).
+Follow the guide of [AAD B2C application registry](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-register-applications).
 Please make sure that your b2c application `reply URL` contains `http://localhost:8080/home`.
 
 ### Create user flows
 
-Follow the guide of [AAD B2C user flows creation](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-user-flows).
+Follow the guide of [AAD B2C user flows creation](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-user-flows).
 
 ### Configure the sample
 
@@ -48,11 +56,9 @@ azure:
 1. Fill in the `${your-profile-edit-user-flow}` and `${your-password-reset-user-flow}` from the portal `User flows`.
 Please make sure that these two placeholders should be the same as `application.yml` respectively.
 
-### How to run
+### Run with Maven
 
-* Maven 
-
-```
+```shell
 # Under azure-spring-boot project root directory
 mvn clean install -DskipTests
 cd azure-spring-boot-samples
@@ -72,11 +78,14 @@ mvn spring-boot:run
 8. Logout
 9. Sign in.
 
-### FAQ
+## Troubleshooting
 
-#### Sign in with loops to B2C endpoint ?
+### Sign in with loops to B2C endpoint ?
 This issue almost due to polluted cookies of `localhost`. Clean up cookies of `localhost` and try it again.
 
-#### More identity providers from AAD B2C login ?
-Follow the guide of [Set up Google account with AAD B2C](https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-setup-goog-app).
+### More identity providers from AAD B2C login ?
+Follow the guide of [Set up Google account with AAD B2C](https://docs.microsoft.com/azure/active-directory-b2c/active-directory-b2c-setup-goog-app).
 And also available for Amazon, Azure AD, FaceBook, Github, Linkedin and Twitter.
+
+## Next steps
+## Contributing
