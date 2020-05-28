@@ -23,7 +23,6 @@ import static com.microsoft.azure.utils.Constants.AZURE_KEYVAULT_VAULT_URI;
 import static com.microsoft.azure.utils.Constants.DEFAULT_REFRESH_INTERVAL_MS;
 import static com.microsoft.azure.utils.Constants.SPRINGBOOT_KEY_VAULT_APPLICATION_ID;
 import com.microsoft.azure.telemetry.TelemetrySender;
-import com.microsoft.azure.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.bind.Bindable;
