@@ -39,5 +39,5 @@ jobs:
         EnvVars:
           AZURE_TEST_MODE: LIVE
         variables:
-          SKIPTEST: false
+          SKIPTEST: true
 
