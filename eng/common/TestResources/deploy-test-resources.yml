@@ -41,8 +41,7 @@ steps:
   - ${{each artifact in parameters.Artifacts }}:
     - pwsh: |
         Write-Host "##vso[task.setvariable variable=ArtifactList;]$(ArtifactList),${{artifact.name}}"
-        $(ArtifactList).TrimStart(",")
-      displayName: Append ${{artifact.name}} to $(ArtifactList)
+      displayName: Append ${{artifact.name}} to artifact list
 
   - pwsh: |
       eng/common/TestResources/Import-AzModules.ps1
@@ -51,7 +50,7 @@ steps:
         ${{ parameters.SubscriptionConfiguration }}
       '@ | ConvertFrom-Json -AsHashtable;
 
-      $(ArtifactList).TrimStart(",")
+      $ArtifactList.TrimStart(",")
       # The subscriptionConfiguration may have ArmTemplateParameters defined, so
       # pass those in via the ArmTemplateParameters flag, and handle any
       # additional parameters from the pipelines via AdditionalParameters
