@@ -47,9 +47,9 @@ steps:
 #        $artifactsNameArray += $artifact.name
 #      }
 
-      $subscriptionConfiguration = @'
-        ${{ parameters.SubscriptionConfiguration }}
-      '@ | ConvertFrom-Json -AsHashtable;
+#      $subscriptionConfiguration = @'
+#        ${{ parameters.SubscriptionConfiguration }}
+#      '@ | ConvertFrom-Json -AsHashtable;
 
       # The subscriptionConfiguration may have ArmTemplateParameters defined, so
       # pass those in via the ArmTemplateParameters flag, and handle any
