@@ -50,7 +50,6 @@ steps:
         ${{ parameters.SubscriptionConfiguration }}
       '@ | ConvertFrom-Json -AsHashtable;
 
-      $ArtifactList.TrimStart(",")
       # The subscriptionConfiguration may have ArmTemplateParameters defined, so
       # pass those in via the ArmTemplateParameters flag, and handle any
       # additional parameters from the pipelines via AdditionalParameters

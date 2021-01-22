@@ -22,7 +22,7 @@ param (
     [string] $ServiceDirectory,
 
     [Parameter()]
-    [string[]] $Artifacts = @(),
+    [string] $Artifacts,
 
     [Parameter()]
     [ValidatePattern('^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$')]
@@ -149,8 +149,8 @@ try {
 
     # Deploy test resources according to Artifacts
     if ($Artifacts) {
-        foreach ($Artifact in $Artifacts) {
-            $templateFilePath = Join-Path $root $Artifact
+        $Artifacts.TrimStart(",").split(",") | ForEach-Object {
+            $templateFilePath = Join-Path $root $_.FullName
             Write-Verbose "Checking for '$templateFileName' files under '$templateFilePath'"
             Get-ChildItem -Path $templateFilePath -Filter $templateFileName -Recurse | ForEach-Object {
                 $templateFile = $_.FullName
