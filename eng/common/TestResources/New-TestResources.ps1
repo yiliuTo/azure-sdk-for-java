@@ -149,6 +149,9 @@ try {
 
     # Deploy test resources according to Artifacts
     if ($Artifacts) {
+        Write-Verbose "The artifact list is '$Artifacts'"
+        Write-Verbose "Value of trimstart is '$Artifacts.TrimStart(",")'"
+        Write-Verbose "Value of artifact list is '$Artifacts'"
         $Artifacts.TrimStart(",").split(",") | ForEach-Object {
             $templateFilePath = Join-Path $root $_.FullName
             Write-Verbose "Checking for '$templateFileName' files under '$templateFilePath'"
