@@ -41,7 +41,7 @@ steps:
   - ${{each artifact in parameters.Artifacts }}:
     - pwsh: |
         Write-Host "##vso[task.setvariable variable=ArtifactList;]$(ArtifactList),${{artifact.name}}"
-    displayName: Append ${{artifact.name}} to artifact list
+      displayName: Append ${{artifact.name}} to artifact list
 
   - pwsh: |
       eng/common/TestResources/Import-AzModules.ps1
