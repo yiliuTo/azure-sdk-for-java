@@ -60,7 +60,7 @@ steps:
         -Artifacts ${{ parameters.Artifacts }} `
         -Location '${{ parameters.Location }}' `
         -DeleteAfterHours '${{ parameters.DeleteAfterHours }}' `
-        @subscriptionConfiguration `
+#        @subscriptionConfiguration `
         -AdditionalParameters ${{ parameters.ArmTemplateParameters }} `
         -CI `
         -Force `
