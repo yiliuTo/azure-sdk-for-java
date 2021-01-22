@@ -111,6 +111,7 @@ jobs:
             SubscriptionConfiguration: $(SubscriptionConfiguration)
             ArmTemplateParameters: $(ArmTemplateParameters)
             Location: $(Location)
+            Artifacts: ${{ parameters.Artifacts }}
 
       - ${{ parameters.PreRunSteps }}
 
