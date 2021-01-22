@@ -33,23 +33,21 @@ parameters:
 
 
 steps:
-#  - template: /eng/common/TestResources/setup-az-modules.yml
-
   - pwsh: |
       eng/common/TestResources/Import-AzModules.ps1
 
-#      $artifactsArray = ${{ parameters.Artifacts }}
-#      Write-Verbose "There are $artifactsArray.Count artifacts"
-#
-#      $artifactsNameArray = @()
-#      foreach($artifact in $artifactsArray) {
-#        Write-Verbose "$artifact.name"
-#        $artifactsNameArray += $artifact.name
-#      }
+      $artifactsArray = ${{ parameters.Artifacts }}
+      Write-Verbose "There are $artifactsArray.Count artifacts"
 
-#      $subscriptionConfiguration = @'
-#        ${{ parameters.SubscriptionConfiguration }}
-#      '@ | ConvertFrom-Json -AsHashtable;
+      $artifactsNameArray = @()
+      foreach($artifact in $artifactsArray) {
+        Write-Verbose "$artifact.name"
+        $artifactsNameArray += $artifact.name
+      }
+
+      $subscriptionConfiguration = @'
+        ${{ parameters.SubscriptionConfiguration }}
+      '@ | ConvertFrom-Json -AsHashtable;
 
       # The subscriptionConfiguration may have ArmTemplateParameters defined, so
       # pass those in via the ArmTemplateParameters flag, and handle any
@@ -60,7 +58,7 @@ steps:
         -Artifacts ${{ parameters.Artifacts }} `
         -Location '${{ parameters.Location }}' `
         -DeleteAfterHours '${{ parameters.DeleteAfterHours }}' `
-#        @subscriptionConfiguration `
+        @subscriptionConfiguration `
         -AdditionalParameters ${{ parameters.ArmTemplateParameters }} `
         -CI `
         -Force `
