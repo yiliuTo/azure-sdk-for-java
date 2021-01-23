@@ -149,10 +149,22 @@ try {
 
     # Deploy test resources according to Artifacts
     if ($Artifacts) {
-        Write-Verbose "The artifact list is '$Artifacts.Count'"
+        $count = $Artifacts.Count
+        Write-Verbose "The artifact list count is '$count'"
+        $type = $Artifacts.GetType()
+        Write-Verbose "The artifact list type is $type"
+        Write-Verbose "The artifact list type is '$type'"
+        Write-Verbose "The artifact list count is $Artifacts.Count"
+        Write-Verbose "The artifact list count is '($Artifacts.Count)'"
+        Write-Verbose "The artifact list type is $Artifacts.GetType()"
+
         foreach ($artifact in $Artifacts) {
             Write-Verbose "Value of artifact list is '$artifact.name'"
         }
+        $ArtifactsString = $Artifacts.TrimStart(",")
+        $ArtifactsArray = $ArtifactsString.Split(",")
+        Write-Verbose "Value of artifact list is $ArtifactsArray"
+
 #        $Artifacts.TrimStart(",").split(",") | ForEach-Object {
 #            $templateFilePath = Join-Path $root $_.FullName
 #            Write-Verbose "Checking for '$templateFileName' files under '$templateFilePath'"

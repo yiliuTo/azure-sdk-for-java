@@ -41,8 +41,7 @@ steps:
   - ${{each artifact in parameters.Artifacts }}:
     - pwsh: |
             Write-Host "##vso[task.setvariable variable=ArtifactList;]$(ArtifactList),${{artifact.name}}"
-            Write-Host "##vso[task.setvariable variable=ArtifactListType;]$(ArtifactList).GetType()"
-      displayName: Type of artifact list is $(ArtifactListType)
+      displayName: Append ${{artifact.name}} to artifact list
 
   - pwsh: |
       eng/common/TestResources/Import-AzModules.ps1
@@ -51,9 +50,6 @@ steps:
         ${{ parameters.SubscriptionConfiguration }}
       '@ | ConvertFrom-Json -AsHashtable;
 
-      Write-Verbose "The data type of artifact list is '$(ArtifactList).GetType()'"
-      $ArtifactListStringColon = '$(ArtifactList)'
-      Write-Verbose "The data type of artifact list with colon is '$ArtifactListStringColon.GetType()'"
       # The subscriptionConfiguration may have ArmTemplateParameters defined, so
       # pass those in via the ArmTemplateParameters flag, and handle any
       # additional parameters from the pipelines via AdditionalParameters
