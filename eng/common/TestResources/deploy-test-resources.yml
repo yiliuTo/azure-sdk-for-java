@@ -30,10 +30,10 @@ parameters:
 #       "keyVaultEndpointSuffix": "<keyVaultEndpointSuffix>"
 #   }
 # }
+#      - template: /eng/common/TestResources/setup-az-modules.yml
 
 
 steps:
-  - template: /eng/common/TestResources/setup-az-modules.yml
 
   - pwsh: |
       Write-Host "##vso[task.setvariable variable=ArtifactList;]"
