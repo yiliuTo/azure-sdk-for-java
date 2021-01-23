@@ -22,7 +22,7 @@ param (
     [string] $ServiceDirectory,
 
     [Parameter()]
-    [string[]] $Artifacts,
+    [string] $Artifacts,
 
     [Parameter()]
     [ValidatePattern('^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$')]
@@ -149,24 +149,16 @@ try {
 
     # Deploy test resources according to Artifacts
     if ($Artifacts) {
-        $type = $Artifacts.GetType()
+        $Artifacts.TrimStart(",").Split(",") | ForEach-Object {
+            $templateFilePath = Join-Path $root $_
+            Write-Verbose "Checking for '$templateFileName' files under '$templateFilePath'"
+            Get-ChildItem -Path $templateFilePath -Filter $templateFileName -Recurse | ForEach-Object {
+                $templateFile = $_.FullName
 
-        Write-Verbose "the artifact list type is $type"
-        Write-Verbose "the artifact list is $Artifacts"
-
-        foreach ($artifact in $Artifacts){
-            Write-Verbose "the artifact is $artifact"
+                Write-Verbose "Found template '$templateFile'"
+                $templateFiles += $templateFile
+            }
         }
-#        $Artifacts.TrimStart(",").Split(",") | ForEach-Object {
-#            $templateFilePath = Join-Path $root $_
-#            Write-Verbose "Checking for '$templateFileName' files under '$templateFilePath'"
-#            Get-ChildItem -Path $templateFilePath -Filter $templateFileName -Recurse | ForEach-Object {
-#                $templateFile = $_.FullName
-#
-#                Write-Verbose "Found template '$templateFile'"
-#                $templateFiles += $templateFile
-#            }
-#        }
     } else {
         Write-Verbose "Checking for '$templateFileName' files under '$root'"
         Get-ChildItem -Path $root -Filter $templateFileName -Recurse | ForEach-Object {
@@ -574,6 +566,11 @@ created.
 A directory under 'sdk' in the repository root - optionally with subdirectories
 specified - in which to discover ARM templates named 'test-resources.json'.
 This can also be an absolute path or specify parent directories.
+
+.PARAMETER Artifacts
+A string of all artifact names defined in tests.yml under ServiceDirectory. If the
+value is not set, then all ARM templates under ServiceDirectory will be found to deploy
+test resources. Otherwise, only templates under ServiceDirectory/artifact will be discovered.
 
 .PARAMETER TestApplicationId
 The AAD Application ID to authenticate the test runner against deployed
