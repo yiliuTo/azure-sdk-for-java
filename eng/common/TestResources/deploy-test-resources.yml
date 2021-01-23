@@ -34,14 +34,14 @@ parameters:
 
 steps:
 
-- pwsh: |
+  - pwsh: |
       Write-Host "##vso[task.setvariable variable=ArtifactList;]"
-  displayName: Initialize artifact list variable
+    displayName: Initialize artifact list variable
 
-- ${{each artifact in parameters.Artifacts }}:
-      - pwsh: |
+  - ${{each artifact in parameters.Artifacts }}:
+    - pwsh: |
             Write-Host "##vso[task.setvariable variable=ArtifactList;]$(ArtifactList),${{artifact.name}}"
-        displayName: Append ${{artifact.name}} to artifact list
+      displayName: Append ${{artifact.name}} to artifact list
 
   - pwsh: |
       eng/common/TestResources/Import-AzModules.ps1
