@@ -50,15 +50,18 @@ steps:
         ${{ parameters.SubscriptionConfiguration }}
       '@ | ConvertFrom-Json -AsHashtable;
 
-      Write-Host "The data type of artifact list is '$(ArtifactList).GetType()'"
-
+      Write-Verbose "The data type of artifact list is '$(ArtifactList).GetType()'"
+      $ArtifactListString = $(ArtifactList)
+      $ArtifactListStringColon = '$(ArtifactList)'
+      Write-Verbose "The data type of artifact list 2 is '$ArtifactListString.GetType()'"
+      Write-Verbose "The data type of artifact list with colon is '$ArtifactListStringColon.GetType()'"
       # The subscriptionConfiguration may have ArmTemplateParameters defined, so
       # pass those in via the ArmTemplateParameters flag, and handle any
       # additional parameters from the pipelines via AdditionalParameters
       eng/common/TestResources/New-TestResources.ps1 `
         -BaseName 'Generated' `
         -ServiceDirectory '${{ parameters.ServiceDirectory }}' `
-        -Artifacts $(ArtifactList) `
+        -Artifacts '$(ArtifactList)' `
         -Location '${{ parameters.Location }}' `
         -DeleteAfterHours '${{ parameters.DeleteAfterHours }}' `
         @subscriptionConfiguration `
