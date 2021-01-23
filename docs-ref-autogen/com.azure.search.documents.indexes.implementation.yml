@@ -1,0 +1,16 @@
+### YamlMime:JavaPackage
+uid: "com.azure.search.documents.indexes.implementation"
+fullName: "com.azure.search.documents.indexes.implementation"
+name: "com.azure.search.documents.indexes.implementation"
+summary: "Package containing the implementations and inner classes for SearchServiceClient. Client that can be used to manage\n and query indexes and documents, as well as manage other resources, on a search service."
+classes:
+- "com.azure.search.documents.indexes.implementation.DataSourcesImpl"
+- "com.azure.search.documents.indexes.implementation.IndexersImpl"
+- "com.azure.search.documents.indexes.implementation.IndexesImpl"
+- "com.azure.search.documents.indexes.implementation.SearchServiceClientImpl"
+- "com.azure.search.documents.indexes.implementation.SearchServiceClientImplBuilder"
+- "com.azure.search.documents.indexes.implementation.SkillsetsImpl"
+- "com.azure.search.documents.indexes.implementation.SynonymMapsImpl"
+metadata: {}
+package: "com.azure.search.documents.indexes.implementation"
+artifact: com.azure:azure-search-documents:11.1.3

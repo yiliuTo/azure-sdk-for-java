@@ -1,0 +1,20 @@
+### YamlMime:JavaPackage
+uid: "com.azure.communication.common"
+fullName: "com.azure.communication.common"
+name: "com.azure.communication.common"
+summary: "This package contains the implementation classes for Azure communication common.\n Azure communication common contains data structures and interfaces to support cross cutting features\n in Azure communication client packages."
+classes:
+- "com.azure.communication.common.CallingApplication"
+- "com.azure.communication.common.CommunicationClientCredential"
+- "com.azure.communication.common.CommunicationIdentifier"
+- "com.azure.communication.common.CommunicationUser"
+- "com.azure.communication.common.CommunicationUserCredential"
+- "com.azure.communication.common.ConnectionString"
+- "com.azure.communication.common.HmacAuthenticationPolicy"
+- "com.azure.communication.common.PhoneNumber"
+- "com.azure.communication.common.UnknownIdentifier"
+interfaces:
+- "com.azure.communication.common.TokenRefresher"
+metadata: {}
+package: "com.azure.communication.common"
+artifact: com.azure:azure-communication-common:1.0.0-beta.3
