@@ -149,19 +149,20 @@ try {
 
     # Deploy test resources according to Artifacts
     if ($Artifacts) {
-        Write-Verbose "The artifact list is '$Artifacts'"
-        Write-Verbose "Value of trimstart is '$Artifacts.TrimStart(",")'"
-        Write-Verbose "Value of artifact list is '$Artifacts'"
-        $Artifacts.TrimStart(",").split(",") | ForEach-Object {
-            $templateFilePath = Join-Path $root $_.FullName
-            Write-Verbose "Checking for '$templateFileName' files under '$templateFilePath'"
-            Get-ChildItem -Path $templateFilePath -Filter $templateFileName -Recurse | ForEach-Object {
-                $templateFile = $_.FullName
-
-                Write-Verbose "Found template '$templateFile'"
-                $templateFiles += $templateFile
-            }
+        Write-Verbose "The artifact list is '$Artifacts.Count'"
+        foreach ($artifact in $Artifacts) {
+            Write-Verbose "Value of artifact list is '$artifact.name'"
         }
+#        $Artifacts.TrimStart(",").split(",") | ForEach-Object {
+#            $templateFilePath = Join-Path $root $_.FullName
+#            Write-Verbose "Checking for '$templateFileName' files under '$templateFilePath'"
+#            Get-ChildItem -Path $templateFilePath -Filter $templateFileName -Recurse | ForEach-Object {
+#                $templateFile = $_.FullName
+#
+#                Write-Verbose "Found template '$templateFile'"
+#                $templateFiles += $templateFile
+#            }
+#        }
     } else {
         Write-Verbose "Checking for '$templateFileName' files under '$root'"
         Get-ChildItem -Path $root -Filter $templateFileName -Recurse | ForEach-Object {
