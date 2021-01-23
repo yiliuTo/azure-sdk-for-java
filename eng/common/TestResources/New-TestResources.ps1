@@ -149,25 +149,8 @@ try {
 
     # Deploy test resources according to Artifacts
     if ($Artifacts) {
-
-        $ArtifactsString = $Artifacts.TrimStart(",")
-        $ArtifactsArray = $ArtifactsString.Split(",")
-        $count = $ArtifactsArray.Count
-        $type = $ArtifactsArray.GetType()
-        Write-Verbose "Value of artifacts is $Artifacts"
-        Write-Verbose "Value of artifact string is $ArtifactsString"
-        Write-Verbose "Count of artifact array is $count"
-        Write-Verbose "Type of artifact array is $type"
-
-        foreach ($artifactid in $ArtifactsArray) {
-            Write-Verbose "artifact is $artifactid"
-        }
-
         $Artifacts.TrimStart(",").Split(",") | ForEach-Object {
-            $artifact = $_.FullName
-            Write-Verbose "Value of artifact is $artifact"
-            Write-Verbose "Value of artifact is $_.FullName"
-            $templateFilePath = Join-Path $root $_.FullName
+            $templateFilePath = Join-Path $root $_
             Write-Verbose "Checking for '$templateFileName' files under '$templateFilePath'"
             Get-ChildItem -Path $templateFilePath -Filter $templateFileName -Recurse | ForEach-Object {
                 $templateFile = $_.FullName
