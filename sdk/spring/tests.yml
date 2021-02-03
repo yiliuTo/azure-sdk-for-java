@@ -1,7 +1,7 @@
 trigger: none
 
-jobs:
-    - template: ../../eng/pipelines/templates/jobs/archetype-sdk-tests.yml
+stages:
+    - template: ../../eng/pipelines/templates/stages/archetype-sdk-tests.yml
       parameters:
         TimeoutInMinutes: 240
         ServiceDirectory: spring
@@ -80,7 +80,7 @@ jobs:
           AAD_SERVICE_PRICIPAL_CLIENT_ID: $(java-spring-aad-service-principal-client-id)
           AAD_SERVICE_PRICIPAL_CLIENT_SECRET: $(java-spring-aad-service-principal-client-secret)
 
-        PreRunSteps:
+        PreSteps:
           - powershell: |
               $env:AAD_USER_NAME_ON_DEMAND
               az login --allow-no-subscriptions --tenant $(java-spring-aad-tenant-id-1) --service-principal -u $(java-spring-aad-service-principal-client-id) -p $(java-spring-aad-service-principal-client-secret)
@@ -90,7 +90,7 @@ jobs:
               AAD_USER_NAME_ON_DEMAND: "user$(System.JobId)@aadittest1.onmicrosoft.com"
             displayName: 'Create On-demand test user'
 
-        PostRunSteps:
+        PostSteps:
           - script: |
               python --version
               python -m pip install setuptools termcolor in_place
