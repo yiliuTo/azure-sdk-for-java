@@ -27,14 +27,17 @@ stages:
             - powershell: |
                   az login --allow-no-subscriptions --tenant ${{ parameters.EnvVars.AAD_TENANT_ID_1 }} --service-principal -u ${{ parameters.EnvVars.AAD_SERVICE_PRICIPAL_CLIENT_ID }} -p ${{ parameters.EnvVars.AAD_SERVICE_PRICIPAL_CLIENT_SECRET }}
                   az ad user create --user-principal-name "${{ parameters.EnvVars.AAD_USER_NAME_ON_DEMAND }}" --display-name "${{ parameters.AadOnDemandUserDisplayName }}" --password "${{ parameters.EnvVars.AAD_USER_PASSWORD_ON_DEMAND }}" --force-change-password-next-login false
-              displayName: 'Create On-demand test user'
+                  az ad user create --user-principal-name "${{ parameters.EnvVars.AAD_USER_NAME_MULTI_TETANT }}" --display-name "${{ parameters.AadMultiTenantUserDisplayName }}" --password "${{ parameters.EnvVars.AAD_USER_PASSWORD_MULTI_TETANT }}" --force-change-password-next-login false
+              displayName: 'Create On-demand and Multi-tetant test user'
 
         PostSteps:
           - powershell: |
                 az ad user delete --id "${{ parameters.EnvVars.AAD_USER_NAME_ON_DEMAND }}"
+                az ad user delete --id "${{ parameters.EnvVars.AAD_USER_NAME_MULTI_TETANT }}"
                 az ad user create --user-principal-name "${{ parameters.EnvVars.AAD_USER_NAME_ON_DEMAND }}" --display-name "${{ parameters.AadOnDemandUserDisplayName }}" --password "${{ parameters.EnvVars.AAD_USER_PASSWORD_ON_DEMAND }}" --force-change-password-next-login false
+                az ad user create --user-principal-name "${{ parameters.EnvVars.AAD_USER_NAME_MULTI_TETANT }}" --display-name "${{ parameters.AadMultiTenantUserDisplayName }}" --password "${{ parameters.EnvVars.AAD_USER_PASSWORD_MULTI_TETANT }}" --force-change-password-next-login false
             condition: always()
-            displayName: 'Delete On-demand test user and create again'
+            displayName: 'Delete On-demand and Multi-tetant test user and create again'
 
           - script: |
               python --version
@@ -64,6 +67,7 @@ stages:
 
           - powershell: |
                 az ad user delete --id "${{ parameters.EnvVars.AAD_USER_NAME_ON_DEMAND }}"
+                az ad user delete --id "${{ parameters.EnvVars.AAD_USER_NAME_MULTI_TETANT }}"
                 az logout
             condition: always()
             displayName: 'Delete On-demand test user'

@@ -33,7 +33,7 @@ public class AADMultipleTenantIT {
         properties.put("azure.activedirectory.client-secret", AAD_MULTI_TENANT_CLIENT_SECRET);
 
         aadSeleniumITHelper = new AADSeleniumITHelper(DumbApp.class, properties,
-            AAD_USER_NAME_2, AAD_USER_PASSWORD_2);
+            AAD_USER_NAME_MULTI_TETANT, AAD_USER_PASSWORD_MULTI_TETANT);
         aadSeleniumITHelper.logIn();
 
         String httpResponse = aadSeleniumITHelper.httpGet("api/home");
