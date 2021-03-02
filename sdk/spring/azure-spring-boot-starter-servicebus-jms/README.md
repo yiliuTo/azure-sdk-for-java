@@ -87,12 +87,9 @@ public class User implements Serializable {
 }
 ```
 
-By default, Spring framework uses 4 types of jms messages including `TextMessage`, `BytesMessage`, `MapMessage` and `ObjectMessage` for different message objects, and `Serializable` is implemented to use the `send` method in `JmsTemplate` in this sample which will generate `ObjectMessage`. Otherwise, a customized `MessageConverter` bean should be defined to serialize the content to json in text format. For more information about `MessageConverter`, see the official [Spring JMS starter project](https://spring.io/guides/gs/messaging-jms/).
+#### Configure a customized MessageConverter bean
 
-#### Configure bean of customized MessageConverter to modify Content Type of jms messages 
-Amqp protocol sets Content Type of each JmsMessage object according to its type.
-Developers can use customized MessageConverter to override content-type of messages. Define a customized MessageConverter and modify methods of creating jms messages, developers can use `AmqpJmsMessageFacade` to modify `Content Type`.
-
+A customized `MessageConverter` bean can be used to convert between Java objects and JMS messages.
 For example, below code snippet sets Content Type of `BytesMessage` as `application/json`.
 
 <!-- embedme ../azure-spring-boot/src/samples/java/com/azure/spring/jms/CustomizedMessageConverter.java#L12-L35 -->
@@ -122,6 +119,8 @@ public class CustomizedMessageConverter extends SimpleMessageConverter {
 
 }
 ```
+
+For more information about `MessageConverter`, see the official [Spring JMS guide](https://spring.io/guides/gs/messaging-jms/).
 
 #### Create a new class for the message send controller
 
