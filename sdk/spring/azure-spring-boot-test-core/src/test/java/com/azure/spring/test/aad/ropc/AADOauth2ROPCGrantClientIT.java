@@ -6,8 +6,8 @@ package com.azure.spring.test.aad.ropc;
 import org.junit.Test;
 
 import static com.azure.spring.test.Constant.MULTI_TENANT_SCOPE_GRAPH_READ;
-import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_ID;
-import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_SECRET;
+import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_ID_1;
+import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_SECRET_1;
 import static com.azure.spring.test.EnvironmentVariable.AAD_TENANT_ID_1;
 import static com.azure.spring.test.EnvironmentVariable.AAD_USER_NAME_1;
 import static com.azure.spring.test.EnvironmentVariable.AAD_USER_PASSWORD_1;
@@ -20,8 +20,8 @@ public class AADOauth2ROPCGrantClientIT {
         AADOauth2ROPCGrantClient.OAuth2ROPCResponse oAuth2ROPCResponse =
             AADOauth2ROPCGrantClient.getOAuth2ROPCResponseByROPCGrant(
             AAD_TENANT_ID_1,
-            AAD_MULTI_TENANT_CLIENT_ID,
-            AAD_MULTI_TENANT_CLIENT_SECRET,
+            AAD_MULTI_TENANT_CLIENT_ID_1,
+            AAD_MULTI_TENANT_CLIENT_SECRET_1,
             AAD_USER_NAME_1,
             AAD_USER_PASSWORD_1,
             MULTI_TENANT_SCOPE_GRAPH_READ);

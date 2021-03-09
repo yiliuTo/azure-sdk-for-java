@@ -1,10 +1,10 @@
 package com.azure.spring.test;
 
-import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_ID;
+import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_ID_1;
 
 public class Constant {
     public static final String MULTI_TENANT_SCOPE_GRAPH_READ =
-        toFullNameScope(AAD_MULTI_TENANT_CLIENT_ID, "ResourceAccessGraph.Read");
+        toFullNameScope(AAD_MULTI_TENANT_CLIENT_ID_1, "ResourceAccessGraph.Read");
 
     public static String toFullNameScope(String clientId, String scope) {
         return "api://" + clientId + "/" + scope;

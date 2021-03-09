@@ -27,8 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.azure.spring.test.Constant.toFullNameScope;
-import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_ID;
-import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_SECRET;
+import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_ID_1;
+import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_SECRET_1;
 import static com.azure.spring.test.EnvironmentVariable.AAD_SINGLE_TENANT_CLIENT_ID;
 import static com.azure.spring.test.EnvironmentVariable.AAD_SINGLE_TENANT_CLIENT_SECRET;
 import static com.azure.spring.test.EnvironmentVariable.AAD_TENANT_ID_1;
@@ -43,7 +43,7 @@ public class AADAuthenticationFilterIT {
     @Before
     public void init() {
         singleTenantITHelper = getAADWebApiITHelper(AAD_SINGLE_TENANT_CLIENT_ID, AAD_SINGLE_TENANT_CLIENT_SECRET);
-        multiTenantITHelper = getAADWebApiITHelper(AAD_MULTI_TENANT_CLIENT_ID, AAD_MULTI_TENANT_CLIENT_SECRET);
+        multiTenantITHelper = getAADWebApiITHelper(AAD_MULTI_TENANT_CLIENT_ID_1, AAD_MULTI_TENANT_CLIENT_SECRET_1);
     }
 
     private AADWebApiITHelper getAADWebApiITHelper(String clientId, String clientSecret) {

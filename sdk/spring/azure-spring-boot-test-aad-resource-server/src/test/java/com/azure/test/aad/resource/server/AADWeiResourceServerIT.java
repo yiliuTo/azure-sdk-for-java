@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.azure.spring.test.Constant.MULTI_TENANT_SCOPE_GRAPH_READ;
-import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_ID;
-import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_SECRET;
+import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_ID_1;
+import static com.azure.spring.test.EnvironmentVariable.AAD_MULTI_TENANT_CLIENT_SECRET_1;
 import static org.junit.Assert.assertEquals;
 
 public class AADWeiResourceServerIT {
@@ -33,14 +33,14 @@ public class AADWeiResourceServerIT {
     @Before
     public void init() {
         Map<String, String> properties = new HashMap<>();
-        properties.put("azure.activedirectory.client-id", AAD_MULTI_TENANT_CLIENT_ID);
-        properties.put("azure.activedirectory.client-secret", AAD_MULTI_TENANT_CLIENT_SECRET);
-        properties.put("azure.activedirectory.app-id-uri", "api://" + AAD_MULTI_TENANT_CLIENT_ID);
+        properties.put("azure.activedirectory.client-id", AAD_MULTI_TENANT_CLIENT_ID_1);
+        properties.put("azure.activedirectory.client-secret", AAD_MULTI_TENANT_CLIENT_SECRET_1);
+        properties.put("azure.activedirectory.app-id-uri", "api://" + AAD_MULTI_TENANT_CLIENT_ID_1);
         aadWebApiITHelper = new AADWebApiITHelper(
             DumbApp.class,
             properties,
-            AAD_MULTI_TENANT_CLIENT_ID,
-            AAD_MULTI_TENANT_CLIENT_SECRET,
+            AAD_MULTI_TENANT_CLIENT_ID_1,
+            AAD_MULTI_TENANT_CLIENT_SECRET_1,
             Collections.singletonList(MULTI_TENANT_SCOPE_GRAPH_READ));
     }
 

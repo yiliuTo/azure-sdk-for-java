@@ -1,5 +1,6 @@
 parameters:
-  AadOnDemandUserDisplayName: 'user$(System.JobId)-$(Build.BuildId)'
+  AadOnDemandUserDisplayName: 'ondemand$(System.JobId)-$(Build.BuildId)'
+  AadMultiTetantUserDisplayName: 'multitetant$(System.JobId)-$(Build.BuildId)'
   TestName: 'LiveTestInAzureGlobal'
   Clouds: 'Public'
   TestResourceDirectories:
@@ -58,14 +59,20 @@ parameters:
     AAD_TENANT_ID_2: $(java-spring-aad-tenant-id-2)
     AAD_USER_NAME_2: $(java-spring-aad-user-name-2)
     AAD_USER_PASSWORD_2: $(java-spring-aad-user-password-2)
-    AAD_MULTI_TENANT_CLIENT_ID: $(java-spring-aad-multi-tenant-client-id)
-    AAD_MULTI_TENANT_CLIENT_SECRET: $(java-spring-aad-multi-tenant-client-secret)
+    AAD_MULTI_TENANT_CLIENT_ID_1: $(java-spring-aad-multi-tenant-client-id-1)
+    AAD_MULTI_TENANT_CLIENT_SECRET_1: $(java-spring-aad-multi-tenant-client-secret-1)
+    AAD_MULTI_TENANT_CLIENT_ID_2: $(java-spring-aad-multi-tenant-client-id-2)
+    AAD_MULTI_TENANT_CLIENT_SECRET_2: $(java-spring-aad-multi-tenant-client-secret-2)
     AAD_SINGLE_TENANT_CLIENT_ID: $(java-spring-aad-single-tenant-id)
     AAD_SINGLE_TENANT_CLIENT_SECRET: $(java-spring-aad-single-tenant-secret)
     AAD_SINGLE_TENANT_CLIENT_ID_WITH_ROLE: $(java-spring-aad-single-tenant-id-with-role)
     AAD_SINGLE_TENANT_CLIENT_SECRET_WITH_ROLE: $(java-spring-aad-single-tenant-secret-with-role)
-    AAD_USER_NAME_ON_DEMAND: "user$(System.JobId)-$(Build.BuildId)@aadittest1.onmicrosoft.com"
+    AAD_USER_NAME_ON_DEMAND: "ondemand$(System.JobId)-$(Build.BuildId)@aadittest1.onmicrosoft.com"
     AAD_USER_PASSWORD_ON_DEMAND: $(java-spring-aad-user-password-1)
+    AAD_USER_NAME_MULTI_TENANT: "multitetant$(System.JobId)-$(Build.BuildId)@aadittest1.onmicrosoft.com"
+    AAD_USER_PASSWORD_MULTI_TENANT: $(java-spring-aad-user-password-1)
+    AAD_USER_NAME_ADMIN: $(java-spring-aad-user-name-admin)
+    AAD_USER_PASSWORD_ADMIN: $(java-spring-aad-user-password-1)
     AAD_SERVICE_PRICIPAL_CLIENT_ID: $(java-spring-aad-service-principal-client-id)
     AAD_SERVICE_PRICIPAL_CLIENT_SECRET: $(java-spring-aad-service-principal-client-secret)
     AAD_B2C_USER_EMAIL: "chrisgreen@abc.com"
@@ -99,11 +106,13 @@ stages:
             - powershell: |
                   az login --allow-no-subscriptions --tenant ${{ parameters.EnvVars.AAD_TENANT_ID_1 }} --service-principal -u ${{ parameters.EnvVars.AAD_SERVICE_PRICIPAL_CLIENT_ID }} -p ${{ parameters.EnvVars.AAD_SERVICE_PRICIPAL_CLIENT_SECRET }}
                   az ad user create --user-principal-name "${{ parameters.EnvVars.AAD_USER_NAME_ON_DEMAND }}" --display-name "${{ parameters.AadOnDemandUserDisplayName }}" --password "${{ parameters.EnvVars.AAD_USER_PASSWORD_ON_DEMAND }}" --force-change-password-next-login false
-              displayName: 'Create On-demand test user'
+                  az ad user create --user-principal-name "${{ parameters.EnvVars.AAD_USER_NAME_MULTI_TENANT }}" --display-name "${{ parameters.AadMultiTetantUserDisplayName }}" --password "${{ parameters.EnvVars.AAD_USER_PASSWORD_MULTI_TENANT }}" --force-change-password-next-login false
+              displayName: 'Create on-demand and multi-tetant test user'
 
         PostSteps:
           - powershell: |
                 az ad user delete --id "${{ parameters.EnvVars.AAD_USER_NAME_ON_DEMAND }}"
+                az ad user delete --id "${{ parameters.EnvVars.AAD_USER_NAME_MULTI_TENANT }}"
                 az logout
             condition: always()
-            displayName: 'Delete On-demand test user'
+            displayName: 'Delete on-demand and multi-tetant test user'

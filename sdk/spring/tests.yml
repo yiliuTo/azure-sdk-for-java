@@ -23,14 +23,20 @@ stages:
           AAD_TENANT_ID_2: $(java-spring-aad-tenant-id-2-cn)
           AAD_USER_NAME_2: $(java-spring-aad-user-name-2-cn)
           AAD_USER_PASSWORD_2: $(java-spring-aad-user-password-2-cn)
-          AAD_MULTI_TENANT_CLIENT_ID: $(java-spring-aad-multi-tenant-client-id-cn)
-          AAD_MULTI_TENANT_CLIENT_SECRET: $(java-spring-aad-multi-tenant-client-secret-cn)
+          AAD_MULTI_TENANT_CLIENT_ID_1: $(java-spring-aad-multi-tenant-client-id-cn-1)
+          AAD_MULTI_TENANT_CLIENT_SECRET_1: $(java-spring-aad-multi-tenant-client-secret-cn-1)
+          AAD_MULTI_TENANT_CLIENT_ID_2: $(java-spring-aad-multi-tenant-client-id-cn-2)
+          AAD_MULTI_TENANT_CLIENT_SECRET_2: $(java-spring-aad-multi-tenant-client-secret-cn-2)
           AAD_SINGLE_TENANT_CLIENT_ID: $(java-spring-aad-single-tenant-id-cn)
           AAD_SINGLE_TENANT_CLIENT_SECRET: $(java-spring-aad-single-tenant-secret-cn)
           AAD_SINGLE_TENANT_CLIENT_ID_WITH_ROLE: $(java-spring-aad-single-tenant-id-with-role-cn)
           AAD_SINGLE_TENANT_CLIENT_SECRET_WITH_ROLE: $(java-spring-aad-single-tenant-secret-with-role-cn)
-          AAD_USER_NAME_ON_DEMAND: "user$(System.JobId)-$(Build.BuildId)@cnaadittest1.partner.onmschina.cn"
+          AAD_USER_NAME_ON_DEMAND: "ondemand$(System.JobId)-$(Build.BuildId)@cnaadittest1.partner.onmschina.cn"
           AAD_USER_PASSWORD_ON_DEMAND: $(java-spring-aad-user-password-1-cn)
+          AAD_USER_NAME_MULTI_TENANT: "multitetant$(System.JobId)-$(Build.BuildId)@cnaadittest1.partner.onmschina.cn"
+          AAD_USER_PASSWORD_MULTI_TENANT: $(java-spring-aad-user-password-1-cn)
+          AAD_USER_NAME_ADMIN: $(java-spring-aad-user-name-admin-cn)
+          AAD_USER_PASSWORD_ADMIN: $(java-spring-aad-user-password-1-cn)
           AAD_SERVICE_PRICIPAL_CLIENT_ID: $(java-spring-aad-service-principal-client-id-cn)
           AAD_SERVICE_PRICIPAL_CLIENT_SECRET: $(java-spring-aad-service-principal-client-secret-cn)
           AAD_B2C_USER_EMAIL: "moary@126.com"
