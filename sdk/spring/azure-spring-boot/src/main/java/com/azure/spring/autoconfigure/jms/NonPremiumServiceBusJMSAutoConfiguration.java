@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
+import org.springframework.jms.connection.CachingConnectionFactory;
 
 import javax.jms.ConnectionFactory;
 
@@ -43,12 +44,15 @@ public class NonPremiumServiceBusJMSAutoConfiguration {
         final String sasKey = serviceBusKey.getSharedAccessKey();
 
         final String remoteUri = String.format(AMQP_URI_FORMAT, host, idleTimeout);
-        final JmsConnectionFactory jmsConnectionFactory = new JmsConnectionFactory();
+        final AzureJmsConnectionFactory jmsConnectionFactory = new AzureJmsConnectionFactory();
         jmsConnectionFactory.setRemoteURI(remoteUri);
         jmsConnectionFactory.setClientID(clientId);
         jmsConnectionFactory.setUsername(sasKeyName);
         jmsConnectionFactory.setPassword(sasKey);
-        return jmsConnectionFactory;
+        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(jmsConnectionFactory);
+        final AzureJmsConnectionListener listener = new AzureJmsConnectionListener(cachingConnectionFactory);
+        jmsConnectionFactory.setConnectionListener(listener);
+        return cachingConnectionFactory;
     }
 
     @Bean

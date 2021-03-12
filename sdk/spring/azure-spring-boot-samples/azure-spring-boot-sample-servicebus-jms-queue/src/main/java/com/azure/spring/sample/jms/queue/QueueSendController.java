@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.jms.Message;
+
 @RestController
 public class QueueSendController {
 
@@ -27,6 +29,8 @@ public class QueueSendController {
         LOGGER.info("Sending message");
 
         jmsTemplate.convertAndSend(QUEUE_NAME, new User(message));
+        Message msg = jmsTemplate.receive(QUEUE_NAME);
+
 
         return message;
     }
