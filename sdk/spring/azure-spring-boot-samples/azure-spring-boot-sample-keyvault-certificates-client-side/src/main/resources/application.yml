@@ -7,3 +7,5 @@ azure:
     # managed-identity:  # The user-assigned managed identity object-id to use.
 server:
   port: 8080
+  ssl:
+    enabled: false

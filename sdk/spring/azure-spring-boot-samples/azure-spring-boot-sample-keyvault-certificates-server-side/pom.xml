@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.4.3</version> <!-- {x-version-update;org.springframework.boot:spring-boot-starter-parent;external_dependency} -->
-    <relativePath/>
-    <!-- lookup parent from repository -->
-  </parent>
-
-  <groupId>com.azure.spring</groupId>
-  <artifactId>azure-spring-boot-sample-keyvault-certificates-server-side</artifactId>
-  <version>1.0.0</version>
-  <packaging>jar</packaging>
-
-  <name>Azure Spring Boot Starter Sample - Key Vault Certificates</name>
-  <description>Sample project for Azure Key Vault Certificates Starter</description>
-  <url>https://github.com/Azure/azure-sdk-for-java</url>
-
-  <properties>
-    <java.version>1.8</java.version>
-  </properties>
-  <dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <modelVersion>4.0.0</modelVersion>  
+  <parent> 
+    <groupId>org.springframework.boot</groupId>  
+    <artifactId>spring-boot-starter-parent</artifactId>  
+    <version>2.4.3</version>  
+    <!-- {x-version-update;org.springframework.boot:spring-boot-starter-parent;external_dependency} -->  
+    <relativePath/>  
+    <!-- lookup parent from repository --> 
+  </parent>  
+  <groupId>com.azure.spring</groupId>  
+  <artifactId>azure-spring-boot-sample-keyvault-certificates-server-side</artifactId>  
+  <version>1.0.0</version>  
+  <packaging>jar</packaging>  
+  <name>Azure Spring Boot Starter Sample - Key Vault Certificates</name>  
+  <description>Sample project for Azure Key Vault Certificates Starter</description>  
+  <url>https://github.com/Azure/azure-sdk-for-java</url>  
+  <properties> 
+    <java.version>1.8</java.version> 
+  </properties>  
+  <dependencies> 
     <!--
 
       Uncomment this if you want to use Webflux.
@@ -33,10 +30,10 @@
         <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
 
-    -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+    -->  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-web</artifactId>  
       <!--
 
           Uncomment this is you are using Jetty / Undertow below.
@@ -47,8 +44,8 @@
                   <artifactId>spring-boot-starter-tomcat</artifactId>
               </exclusion>
           </exclusions>
-      -->
-    </dependency>
+      --> 
+    </dependency>  
     <!--
 
         Uncomment this if you want to use Jetty.
@@ -58,7 +55,7 @@
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
 
-    -->
+    -->  
     <!--
 
         Uncomment this if you want to use Undertow
@@ -68,26 +65,78 @@
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
 
-    -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.vintage</groupId>
-          <artifactId>junit-vintage-engine</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.azure.spring</groupId>
-      <artifactId>azure-spring-boot-starter-keyvault-certificates</artifactId>
-      <version>3.0.0-beta.6</version> <!-- {x-version-update;com.azure.spring:azure-spring-boot-starter-keyvault-certificates;current} -->
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
+    -->  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-test</artifactId>  
+      <scope>test</scope>  
+      <exclusions> 
+        <exclusion> 
+          <groupId>org.junit.vintage</groupId>  
+          <artifactId>junit-vintage-engine</artifactId> 
+        </exclusion> 
+      </exclusions> 
+    </dependency>  
+    <dependency> 
+      <groupId>com.azure.spring</groupId>  
+      <artifactId>azure-spring-boot-starter-keyvault-certificates</artifactId>  
+      <version>3.0.0-beta.5</version>
+      <!-- {x-version-update;com.azure.spring:azure-spring-boot-starter-keyvault-certificates;current} --> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-actuator</artifactId> 
+    </dependency>  
   </dependencies>
+  <build> 
+    <plugins> 
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-compiler-plugin</artifactId>  
+        <configuration> 
+          <source>1.8</source>  
+          <target>1.8</target> 
+        </configuration> 
+      </plugin>  
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-jar-plugin</artifactId>  
+        <configuration> 
+          <archive> 
+            <manifest> 
+              <mainClass>com.azure.spring.security.keyvault.certificates.sample</mainClass> 
+            </manifest> 
+          </archive> 
+        </configuration> 
+      </plugin>  
+      <plugin> 
+        <groupId>com.microsoft.azure</groupId>  
+        <artifactId>azure-webapp-maven-plugin</artifactId>  
+        <version>1.12.0</version>  
+        <configuration> 
+          <schemaVersion>v2</schemaVersion>  
+          <subscriptionId>799c12ba-353c-44a1-883d-84808ebb2216</subscriptionId>  
+          <resourceGroup>azure-spring-boot-sample-keyvault-certificates-server-side-1616565622508-rg</resourceGroup>  
+          <appName>keyvault-certificates-server-1616565622508</appName>  
+          <pricingTier>P1v2</pricingTier>  
+          <region>westeurope</region>  
+          <runtime> 
+            <os>Linux</os>  
+            <javaVersion>Java 8</javaVersion>  
+            <webContainer>Java SE</webContainer> 
+          </runtime>  
+          <deployment> 
+            <resources> 
+              <resource> 
+                <directory>${project.basedir}/target</directory>  
+                <includes> 
+                  <include>*.jar</include> 
+                </includes> 
+              </resource> 
+            </resources> 
+          </deployment> 
+        </configuration> 
+      </plugin> 
+    </plugins> 
+  </build> 
 </project>
