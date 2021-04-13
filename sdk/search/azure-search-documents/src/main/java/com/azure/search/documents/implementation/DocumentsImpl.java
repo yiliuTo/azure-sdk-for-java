@@ -24,15 +24,18 @@ import com.azure.core.http.rest.RestProxy;
 import com.azure.core.util.Context;
 import com.azure.core.util.serializer.CollectionFormat;
 import com.azure.core.util.serializer.JacksonAdapter;
+import com.azure.search.documents.implementation.models.Answers;
 import com.azure.search.documents.implementation.models.AutocompleteOptions;
 import com.azure.search.documents.implementation.models.AutocompleteRequest;
 import com.azure.search.documents.implementation.models.IndexBatch;
 import com.azure.search.documents.implementation.models.IndexDocumentsResult;
+import com.azure.search.documents.implementation.models.QueryLanguage;
 import com.azure.search.documents.implementation.models.RequestOptions;
 import com.azure.search.documents.implementation.models.SearchDocumentsResult;
 import com.azure.search.documents.implementation.models.SearchErrorException;
 import com.azure.search.documents.implementation.models.SearchOptions;
 import com.azure.search.documents.implementation.models.SearchRequest;
+import com.azure.search.documents.implementation.models.Speller;
 import com.azure.search.documents.implementation.models.SuggestDocumentsResult;
 import com.azure.search.documents.implementation.models.SuggestOptions;
 import com.azure.search.documents.implementation.models.SuggestRequest;
@@ -79,7 +82,7 @@ public final class DocumentsImpl {
                 @HostParam("indexName") String indexName,
                 @HeaderParam("x-ms-client-request-id") UUID xMsClientRequestId,
                 @QueryParam("api-version") String apiVersion,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 Context context);
 
         @Get("/docs")
@@ -101,6 +104,9 @@ public final class DocumentsImpl {
                 @QueryParam("scoringParameter") String scoringParameters,
                 @QueryParam("scoringProfile") String scoringProfile,
                 @QueryParam("searchFields") String searchFields,
+                @QueryParam("queryLanguage") QueryLanguage queryLanguage,
+                @QueryParam("speller") Speller speller,
+                @QueryParam("answers") Answers answers,
                 @QueryParam("searchMode") SearchMode searchMode,
                 @QueryParam("scoringStatistics") ScoringStatistics scoringStatistics,
                 @QueryParam("sessionId") String sessionId,
@@ -109,7 +115,7 @@ public final class DocumentsImpl {
                 @QueryParam("$top") Integer top,
                 @QueryParam("api-version") String apiVersion,
                 @HeaderParam("x-ms-client-request-id") UUID xMsClientRequestId,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 Context context);
 
         @Post("/docs/search.post.search")
@@ -120,7 +126,7 @@ public final class DocumentsImpl {
                 @HostParam("indexName") String indexName,
                 @QueryParam("api-version") String apiVersion,
                 @HeaderParam("x-ms-client-request-id") UUID xMsClientRequestId,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 @BodyParam("application/json") SearchRequest searchRequest,
                 Context context);
 
@@ -134,7 +140,7 @@ public final class DocumentsImpl {
                 @QueryParam("$select") String selectedFields,
                 @QueryParam("api-version") String apiVersion,
                 @HeaderParam("x-ms-client-request-id") UUID xMsClientRequestId,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 Context context);
 
         @Get("/docs/search.suggest")
@@ -156,7 +162,7 @@ public final class DocumentsImpl {
                 @QueryParam("$top") Integer top,
                 @QueryParam("api-version") String apiVersion,
                 @HeaderParam("x-ms-client-request-id") UUID xMsClientRequestId,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 Context context);
 
         @Post("/docs/search.post.suggest")
@@ -167,7 +173,7 @@ public final class DocumentsImpl {
                 @HostParam("indexName") String indexName,
                 @QueryParam("api-version") String apiVersion,
                 @HeaderParam("x-ms-client-request-id") UUID xMsClientRequestId,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 @BodyParam("application/json") SuggestRequest suggestRequest,
                 Context context);
 
@@ -179,7 +185,7 @@ public final class DocumentsImpl {
                 @HostParam("indexName") String indexName,
                 @QueryParam("api-version") String apiVersion,
                 @HeaderParam("x-ms-client-request-id") UUID xMsClientRequestId,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 @BodyParam("application/json") IndexBatch batch,
                 Context context);
 
@@ -201,7 +207,7 @@ public final class DocumentsImpl {
                 @QueryParam("minimumCoverage") Double minimumCoverage,
                 @QueryParam("searchFields") String searchFields,
                 @QueryParam("$top") Integer top,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 Context context);
 
         @Post("/docs/search.post.autocomplete")
@@ -212,7 +218,7 @@ public final class DocumentsImpl {
                 @HostParam("indexName") String indexName,
                 @HeaderParam("x-ms-client-request-id") UUID xMsClientRequestId,
                 @QueryParam("api-version") String apiVersion,
-                @HeaderParam("accept") String accept,
+                @HeaderParam("Accept") String accept,
                 @BodyParam("application/json") AutocompleteRequest autocompleteRequest,
                 Context context);
     }
@@ -320,6 +326,21 @@ public final class DocumentsImpl {
             searchFieldsInternal = searchOptions.getSearchFields();
         }
         List<String> searchFields = searchFieldsInternal;
+        QueryLanguage queryLanguageInternal = null;
+        if (searchOptions != null) {
+            queryLanguageInternal = searchOptions.getQueryLanguage();
+        }
+        QueryLanguage queryLanguage = queryLanguageInternal;
+        Speller spellerInternal = null;
+        if (searchOptions != null) {
+            spellerInternal = searchOptions.getSpeller();
+        }
+        Speller speller = spellerInternal;
+        Answers answersInternal = null;
+        if (searchOptions != null) {
+            answersInternal = searchOptions.getAnswers();
+        }
+        Answers answers = answersInternal;
         SearchMode searchModeInternal = null;
         if (searchOptions != null) {
             searchModeInternal = searchOptions.getSearchMode();
@@ -383,6 +404,9 @@ public final class DocumentsImpl {
                 scoringParametersConverted,
                 scoringProfile,
                 searchFieldsConverted,
+                queryLanguage,
+                speller,
+                answers,
                 searchMode,
                 scoringStatistics,
                 sessionId,
@@ -398,7 +422,7 @@ public final class DocumentsImpl {
     /**
      * Searches for documents in the index.
      *
-     * @param searchRequest Parameters for filtering, sorting, faceting, paging, and other search query behaviors.
+     * @param searchRequest The definition of the Search request.
      * @param requestOptions Parameter group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -429,7 +453,8 @@ public final class DocumentsImpl {
      * Retrieves a document from the index.
      *
      * @param key The key of the document to retrieve.
-     * @param selectedFields Array of Get1ItemsItem.
+     * @param selectedFields List of field names to retrieve for the document; Any field not retrieved will be missing
+     *     from the returned document.
      * @param requestOptions Parameter group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -561,7 +586,7 @@ public final class DocumentsImpl {
     /**
      * Suggests documents in the index that match the given partial query text.
      *
-     * @param suggestRequest Parameters for filtering, sorting, fuzzy matching, and other suggestions query behaviors.
+     * @param suggestRequest The Suggest request.
      * @param requestOptions Parameter group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -591,7 +616,7 @@ public final class DocumentsImpl {
     /**
      * Sends a batch of document write actions to the index.
      *
-     * @param batch Contains a batch of document write actions to send to the index.
+     * @param batch The batch of index actions.
      * @param requestOptions Parameter group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -709,7 +734,7 @@ public final class DocumentsImpl {
     /**
      * Autocompletes incomplete query terms based on input text and matching terms in the index.
      *
-     * @param autocompleteRequest Parameters for fuzzy matching, and other autocomplete query behaviors.
+     * @param autocompleteRequest The definition of the Autocomplete request.
      * @param requestOptions Parameter group.
      * @param context The context to associate with this operation.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
