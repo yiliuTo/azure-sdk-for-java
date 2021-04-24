@@ -132,7 +132,8 @@ public class SmsClientTests extends SmsTestBase {
         try {
             SmsSendResult response = client.send("+18007342577", TO_PHONE_NUMBER, MESSAGE);
         } catch (Exception exception) {
-            assertEquals(404, ((HttpResponseException) exception).getResponse().getStatusCode());
+            assertNotNull(((HttpResponseException) exception).getResponse().getStatusCode());
+            assertEquals(401, ((HttpResponseException) exception).getResponse().getStatusCode());
         }
     }
 
